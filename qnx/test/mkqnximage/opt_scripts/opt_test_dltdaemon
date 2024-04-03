@@ -1,0 +1,79 @@
+#!/bin/bash
+
+. ${TOOL_DIR}/functions
+
+function brief()
+{
+    echo "--test-dltdaemon=[no|<path>]"
+}
+
+function help()
+{
+    brief
+    cat <<EOF
+    If this option is given with a <path> to the dlt-daemon source tree, the full tree will be imported
+    on the target under /data/dlt-daemon from which you can execute the dlt-daemon test suite using:
+
+    cd /data/dlt-daemon/qnx/test
+    ./qnxtest.sh
+
+    NOTE: You must compile the dlt-daemon source tree of the desired target before building
+    the vm image.
+
+    The default is no.
+EOF
+}
+
+function validate() {
+
+	if [ ${OPT_TEST_DLTDAEMON} != "no" ]; then
+		if [ ! -d "${OPT_TEST_DLTDAEMON}" ]; then
+			echo "Invalid dlt-daemon source tree '${OPT_TEST_DLTDAEMON}'"
+			exit 1;
+		fi
+	else
+		exit 0;
+	fi
+}
+
+function configure()
+{
+	rm -f output/option_files/*.opt_test_dlt-daemon
+	if [ "$OPT_TEST_DLTDAEMON" != no ]; then
+		if [ "${OPT_VERBOSE}" == "yes" ]; then
+			echo "Building dlt-daemon file list from ${OPT_TEST_DLTDAEMON}"
+		fi
+
+		for f in $(find ${OPT_TEST_DLTDAEMON} -type f); do
+			echo "[perms=0755] dlt-daemon/${f#${OPT_TEST_DLTDAEMON}/}=${f}" >> output/option_files/data_files.opt_test_dlt-daemon
+		done;
+
+		case ${OPT_ARCH} in
+		x86*)
+			DLTDAEMON_TEST_PREFIX="nto-${OPT_ARCH}-o";
+			;;
+		*aarch64*)
+			DLTDAEMON_TEST_PREFIX="nto-aarch64-le";
+			;;
+		esac
+
+		# export dlt-daemon options"
+		echo "DLTDAEMON_TEST_PREFIX=${DLTDAEMON_TEST_PREFIX}" >> output/option_files/ifs_env.opt_test_dlt-daemon
+
+	fi
+
+	exit 0
+}
+
+case "$1" in
+	brief)
+		brief;;
+	help)
+		help;;
+	validate)
+		validate;;
+	configure)
+		configure;;
+	default)
+		echo no;;
+esac

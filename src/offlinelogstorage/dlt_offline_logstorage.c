@@ -22,7 +22,9 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <ctype.h>
+#ifndef __QNX__
 #include <sys/syslog.h>
+#endif
 #include <syslog.h>
 #include <sys/stat.h>
 #include <sys/stat.h>

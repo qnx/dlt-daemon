@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shiplist>
+	<id>com.qnx.${baselineId}.osr.dlt_daemon.internal</id>
+	<name>dlt-daemon v2.18.9</name>
+	<description>dlt-daemon - AUTOSAR compliant logging and tracing</description>
+	<property key="f.support" value="Custom"/>
+	<property key="f.swtype" value="III"/>
+	<property key="f.engage" value="B"/>
+	<category>OSR</category>
+
+	<property key="com.qnx.internal" value="true"/>
+	<!-- don't generate provides/requires tags for internal packages-->
+	<requires value="suppress-library: autogen"/>
+	<provides value="suppress-library: autogen"/>
+
+	<asset>${targetfolder}/[ARCH]/usr/local/lib/libdlt_daemon.so</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/lib/libdlt.so</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/lib/libdlt.so.2</asset>
+
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-adaptor-stdin</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-adaptor-udp</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-control</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-convert</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-daemon</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-example-filetransfer</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-example-user</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-example-user</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-example-user-common-api</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-example-user-func</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-logstorage-ctrl</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-passive-node-ctrl</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-qnx-system</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-receive</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-sortbytimestamp</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-client</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-cpp-extension</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-filetransfer</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-fork-handler</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-init-free</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-multi-process</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-multi-process-client</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-non-verbose</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-preregister-context</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-qnx-slogger</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-stress</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-stress-client</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-stress-user</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/bin/dlt-test-user</asset>
+
+	<asset>${targetfolder}/[ARCH]/usr/local/etc/dlt.conf</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/etc/dlt_gateway.conf</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/etc/dlt-qnx-system.conf</asset>
+	<asset>${targetfolder}/[ARCH]/usr/local/etc/dlt-slog2ctxt.json</asset>
+
+	<asset>${targetfolder}/[ARCH]/usr/local/share/dlt-filetransfer/</asset>
+
+	<asset>${targetfolder}/[ARCH]/usr/local/include/dlt/</asset>
+
+</shiplist>

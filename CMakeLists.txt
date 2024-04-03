@@ -49,6 +49,8 @@ if(NOT CMAKE_BUILD_TYPE)
     message(STATUS "Build type not defined. Using default build type 'RelWithDebInfo'.")
 endif()
 
+include(CMakeDependentOption)
+
 # Set of indiviual options
 option(BUILD_SHARED_LIBS      "Set to OFF to build static libraries"                                             ON)
 option(WITH_SYSTEMD           "Set to ON to create unit files and systemd check on dlt-daemon startup"           OFF)
@@ -81,6 +83,7 @@ option(WITH_DLT_SYSTEM        "Set to ON to build src/system binaries"          
 option(WITH_DLT_DBUS          "Set to ON to build src/dbus binaries"                                             OFF)
 option(WITH_DLT_TESTS         "Set to ON to build src/test binaries"                                             ON)
 option(WITH_DLT_UNIT_TESTS    "Set to ON to build gtest framework and tests/binaries"                            OFF)
+cmake_dependent_option(WITH_DLT_INSTALLED_TESTS "Set to ON to install tests/binaries"                            OFF WITH_DLT_UNIT_TESTS OFF)
 option(WITH_DLT_COVERAGE      "Set to ON to generate coverage report for dlt-daemon source code"                 OFF)
 option(WITH_DLT_QNX_SYSTEM    "Set to ON to build QNX system binary dlt-qnx-system"                              OFF)
 option(WITH_DLT_FILE_LOGGING_SYSLOG_FALLBACK "Set to ON to enable fallback to syslog if dlt logging to file fails" OFF)
@@ -250,8 +253,9 @@ if(WITH_DLT_CXX11_EXT AND WITH_DLT_PKGCONFIG)
     install(FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-c++.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig COMPONENT devel)
 endif()
 
-set(CONFIGURATION_FILES_DIR ${CMAKE_INSTALL_FULL_SYSCONFDIR})
-add_definitions(-DCONFIGURATION_FILES_DIR="${CONFIGURATION_FILES_DIR}")
+set(CONFIGURATION_FILES_DIR ${CMAKE_INSTALL_SYSCONFDIR})
+
+add_definitions(-DCONFIGURATION_FILES_DIR="${CMAKE_INSTALL_PREFIX}/${CONFIGURATION_FILES_DIR}")
 
 add_subdirectory(cmake)
 
@@ -381,6 +385,9 @@ message(STATUS "WITH_DLT_FILETRANSFER = ${WITH_DLT_FILETRANSFER}")
 message(STATUS "WITH_DLT_DBUS = ${WITH_DLT_DBUS}")
 message(STATUS "WITH_DLT_TESTS = ${WITH_DLT_TESTS}")
 message(STATUS "WITH_DLT_UNIT_TESTS = ${WITH_DLT_UNIT_TESTS}")
+if(WITH_DLT_UNIT_TESTS)
+    message(STATUS "WITH_DLT_INSTALLED_TESTS = ${WITH_DLT_INSTALLED_TESTS}")
+endif(WITH_DLT_UNIT_TESTS)
 message(STATUS "WITH_DLT_COVERAGE = ${WITH_DLT_COVERAGE}")
 message(STATUS "WITH_DLT_SHM_ENABLE = ${WITH_DLT_SHM_ENABLE}")
 message(STATUS "WITH_DLTTEST = ${WITH_DLTTEST}")
